@@ -1,38 +1,854 @@
-.App {
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+}
+
+.app-container {
+  display: flex;
+  height:100vh;
+}
+
+.form-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  max-width: 50%;
+  
+}
+@media (max-width:600px)
+{
+  .form-container{
+    max-width: unset;
+    width: 100%;
+  }
+}
+.pdf-viewer-container {
+  flex: 1;
+  height: 100%;
+  
+}
+h1,
+h2,
+h3 {
+  color: #2c3e50;
+}
+
+h1 {
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.patient-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input-group label,
+.additional {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+  padding: 8px;
+  border: 1px solid #706f6f;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+.input-group textarea {
+  height: 100px;
+  resize: vertical;
+  width: 100%;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+  margin-top: 15px;
+}
+
+.investigations .subsection {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.investigations .subsection:last-child {
+  border-bottom: none;
+}
+
+.blood-work .input-group,
+.ultrasonography .input-group,
+.ctkub .input-group,
+.ivp .input-group,
+.treatmentgroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.blood-work .input-group label,
+.ultrasonography .input-group label,
+.ctkub .input-group label,
+.ivp .input-group label,
+.treatmentgroup label {
+  flex: 0 0 200px;
+  margin-right: 10px;
+}
+
+.blood-work .input-group input,
+.blood-work .input-group select,
+.ultrasonography .input-group input,
+.ctkub .input-group input,
+.ivp .input-group input,
+.treatmentgroup input {
+  flex: 1;
+  min-width: 0;
+}
+
+.blood-work .input-group .unit-input {
+  flex: 0 0 60px;
+  margin-left: 10px;
+}
+
+.wbc-components {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.custom-blood-work-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.custom-blood-work-row input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.advice-row {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.advice-row .input-group.medicine {
+  flex: 2;
+  margin-right: 10px;
+}
+
+.advice-row .input-group.dosage {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.advice-row .input-group.dosage input {
+  width: 50px;
+  margin: 0 5px;
+}
+
+.advice-row .input-group.dosage span {
+  margin: 0 5px;
+}
+
+.add-advice-btn, .remove-advice-btn {
+  margin-left: 10px;
+}
+
+.add-advice-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* .medicineInput{
+  display: ;
+} */
+.add-parameter-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.add-parameter-btn:hover {
+  background-color: #2980b9;
+}
+
+.dynamic-investigation {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-investigation-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-investigation-btn:hover {
+  background-color: #45a049;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .patient-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blood-work .input-group,
+  .ultrasonography .input-group,
+  .ivp .input-group {
+    
+    align-items: flex-start;
+  }
+
+  .blood-work .input-group label,
+  .ultrasonography .input-group label,
+  .ivp .input-group label {
+    margin-bottom: 5px;
+  }
+
+  .custom-blood-work-row {
+    flex-direction: column;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  margin-right: 5px;
+}
+
+select[multiple] {
+  height: auto;
+  min-height: 100px;
+  width: 100%;
+}
+
+select[multiple] option {
+  padding: 5px;
+}
+
+.multi-select {
+  position: relative;
+  width: 100%;
+}
+
+.select-header {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.options-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background-color: white;
+  z-index: 1000;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #f0f0f0;
+}
+
+.option.selected {
+  background-color: #e0e0e0;
+}
+
+.button-container button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-container button:hover {
+  background-color: #45a049;
+}
+
+.diagnosis-container {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+}
+
+.diagnosis-type {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.radio-label {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.radio-label input[type="radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* Existing MultiSelect styles */
+.multi-select {
+  position: relative;
+  width: 100%;
+}
+
+.diagnosis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.diagnosis-header label {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.diagnosis-type {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.radio-label input[type="radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.diagnosis-container {
+  margin-top: 10px;
+}
+
+.outcome-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.outcome-header label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.outcome-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+  width: 100%;
+}
+
+.outcome-options .radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.outcome-options .radio-label input[type="radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.outcome-details {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.outcome-details textarea {
+  width: 100%;
+  height: 100px;
+  padding: 8px;
+  border: 1px solid #706f6f;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+@media (max-width: 600px) {
+  .outcome-options {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+/* Add these new styles */
+
+.blood-work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.blood-work-grid .input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.blood-work-grid .input-group label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.value-unit-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.value-unit-group input {
+  flex: 1;
+  padding: 0.25rem;
+}
+
+.value-unit-group .unit-input {
+  width: 50px;
+  flex: 0 0 auto;
+}
+
+/* Add this new style for select inputs in the blood work grid */
+.blood-work-grid .input-group select {
+  width: 100%;
+  padding: 0.25rem;
+}
+
+/* Desktop styles (default) */
+@media (min-width: 601px) {
+  .blood-work-grid {
+    display: block;
+  }
+
+  .blood-work-grid .input-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .blood-work-grid .input-group label {
+    flex: 0 0 200px;
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+
+  .value-unit-group {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .value-unit-group input:first-child {
+    flex: 1;
+    margin-right: 5px;
+  }
+
+  .value-unit-group .unit-input {
+    width: 60px;
+  }
+
+  .blood-work-grid .input-group select {
+    flex: 1;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
+  .blood-work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blood-work-grid .input-group {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.25rem;
+  }
+
+  .blood-work-grid .input-group label {
+    flex: 0 0 40%;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .value-unit-group {
+    flex: 1;
+    flex-direction: row;
+  }
+
+  .value-unit-group input {
+    flex: 1;
+  }
+
+  .value-unit-group .unit-input {
+    width: 40px;
+  }
+
+  .blood-work-grid .input-group select {
+    flex: 1;
+  }
+}
+
+/* Update existing styles */
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Add any other existing styles here */
+
+.advice-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.advice-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.advice-row .input-group.medicine {
+  flex: 2;
+}
+
+.advice-row .input-group.dosage {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.advice-row .input-group.dosage input {
+  flex: 1;
+  min-width: 0;
+}
+
+.add-advice-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Mobile styles for advice section */
+@media (max-width: 600px) {
+  .advice-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .advice-row .input-group.medicine,
+  .advice-row .input-group.dosage {
+    width: 100%;
+  }
+
+  .advice-row .input-group.dosage {
+    flex-direction: row;
+  }
+
+  .advice-row .input-group.dosage input {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
+
+/* Add this new section for beautiful buttons */
+.beautiful-btn {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  min-width: 120px;
+  max-width: 200px;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.beautiful-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.beautiful-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.save-btn {
+  background-color: #4CAF50;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.save-btn:hover {
+  background-color: #45a049;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.show-pdf-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.show-pdf-btn:hover {
+  background-color: #1e87db;
+}
+
+.preview-pdf-btn {
+  background-color: #ff9800;
+  color: white;
+}
+
+.preview-pdf-btn:hover {
+  background-color: #e68a00;
+}
+
+/* Update the existing button container styles */
+.button-container,
+.upper-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.button-container button,
+.button-container a {
+  margin: 0;
+}
+
+/* Style for the PDF download link */
+.pdf-download-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.pdf-download-link:hover {
+  text-decoration: none;
+}
+
+/* Remove the old button styles */
+.button-container button:hover {
+  background-color: unset;
+}
+
+/* Add these styles to your existing CSS file */
+
+.title-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.title-container h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Update the upper button container styles */
+.upper-button-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Update the bottom button container styles */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .title-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  to {
-    transform: rotate(360deg);
+
+  .upper-button-container {
+    margin-top: 10px;
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .beautiful-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 0;
+  }
+
+  .title-container h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
   }
 }
+
+@media (max-width: 480px) {
+  .upper-button-container,
+  .button-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .beautiful-btn,
+  .pdf-download-link {
+    max-width: none;
+    margin-bottom: 10px;
+  }
+
+  .pdf-download-link .beautiful-btn {
+    width: 100%;
+    margin-bottom: 0;
+  }
+}
+
+.info-alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeIn 0.5s, fadeOut 0.5s 4.5s;
+}
+
+.info-alert.info {
+  background-color: #3498db;
+}
+
+.info-alert.success {
+  background-color: #2ecc71;
+}
+
+.info-alert.error {
+  background-color: #e74c3c;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
