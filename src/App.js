@@ -579,28 +579,27 @@ function App() {
             <div className="diagnosis-container">
               <MultiSelect
                 options={[
-                  "Prostatomegaly",
-                  "Right Renal Stone",
-                  "Left Renal Stone",
-                  "Right Upper ureteric stone",
-                  "Left Upper ureteric stone",
-                  "Right lower ureteric stone",
-                  "Left lower ureteric stone",
-                  "Prostatomegaly + Bladder stone",
-                  "Gall bladder stone",
-                  "Right inguinal hernia",
-                  "Left Inguinal Hernia",
-                  "Bladder Stone",
-                  "Urethral Stricture",
-                  "Incisional Hernia",
-                  "Right Pyeloureteric Junction Obstruction",
-                  "Left Pyeloureteric Junction obstruction",
-                  "Hypospadias",
-                  "Penile Fracture",
-                  "Priapism",
-                  "Posterior Urethral",
-                  "other",
-                ]}
+                  "Extradural Hemorrhage (EDH)",
+                  "Subdural Hemorrhage (SDH)",
+                  "Contusion",
+                  "Intraparenchymal Bleeding",
+                  "Diffuse Axonal Injury (DAI)",
+                  "Cervical Spine Injury",
+                  "Dorsal Spine Injury",
+                  "Lumbar Spine Injury", 
+                  "Prolapsed Intervertebral Disc (PIVD)",
+                  "Sciatica",
+                  "CVA Infarct Ischemic",
+                  "CVA Hemorrhagic",
+                  "Acute Bacterial Meningitis",
+                  "Tuberculous Meningitis",
+                  "Viral Meningitis",
+                  "Encephalitis",
+                  "Guillain-Barré Syndrome",
+                  "Transverse Myelitis",
+                  "Electrolyte Imbalance",
+                  "Epilepsy"
+                 ]}
                 value={patientInfo.diagnosis}
                 onChange={(newDiagnosis) => {
                   setPatientInfo((prevInfo) => ({
